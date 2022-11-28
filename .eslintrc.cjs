@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: [
     "plugin:react/recommended",
@@ -14,6 +15,11 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react"],
+  plugins: ["testing-library", "jest-dom", "react"],
   rules: {},
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };
