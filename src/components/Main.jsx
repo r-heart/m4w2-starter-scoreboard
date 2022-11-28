@@ -7,7 +7,7 @@ export default function Main() {
   const [count, setCount] = useState(0);
 
   const handleClick = (e) => {
-    console.log(e.target.dataset.count);
+    setCount((prevCount) => prevCount + Number(e.target.dataset.count));
   };
 
   return (
