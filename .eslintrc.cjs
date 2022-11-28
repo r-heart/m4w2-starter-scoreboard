@@ -15,7 +15,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["testing-library", "jest-dom", "react"],
+  plugins: ["react", "testing-library", "jest-dom"],
   rules: {},
   settings: {
     react: {
