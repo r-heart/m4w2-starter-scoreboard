@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 
-export default function Button(props) {
+export default function Button({ text, handleClick }) {
   return (
     <button
       className="rounded bg-blue-500 px-4 py-2 text-white"
-      data-count={props.text}
-      onClick={props.handleClick}
+      data-count={text}
+      onClick={handleClick}
     >
-      Add {props.text}
+      Add {text}
     </button>
   );
 }
