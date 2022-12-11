@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CONFIG from "../config";
 import Select from "./Select";
+import Buttons from "./Buttons/Buttons";
 
 export default function Main() {
   const [selectedSport, setSelectedSport] = useState("");
@@ -19,6 +20,8 @@ export default function Main() {
           setButtons(selectedSport.buttons);
         }}
       />
+
+      <Buttons buttons={buttons} handleClick={() => {}} />
     </main>
   );
 }
