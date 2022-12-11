@@ -12,11 +12,19 @@ test("initial render", async () => {
   const options = screen.getAllByRole("option");
 
   const toggle = screen.getByRole("checkbox");
+  const homeToggle = screen.getByTestId("home-toggle");
+  const awayToggle = screen.getByTestId("away-toggle");
 
-  const homeScore = screen.getByRole("heading", { name: "Home" });
-  const awayScore = screen.getByRole("heading", { name: "Away" });
+  const homeHeading = screen.getByRole("heading", { name: "Home" });
+  const awayHeading = screen.getByRole("heading", { name: "Away" });
+  const homeScore = screen.getByTestId("home-score");
+  const awayScore = screen.getByTestId("away-score");
 
-  const scores = screen.getAllByText("0");
+  const periodHeading = screen.getByRole("heading", { name: "Period" });
+  const period = screen.getByTestId("period");
+
+  const timeHeading = screen.getByRole("heading", { name: "Time" });
+  const time = screen.getByTestId("time");
 
   expect(select).toBeInTheDocument();
 
@@ -24,11 +32,20 @@ test("initial render", async () => {
   expect(options).toHaveLength(choices.length + 1);
 
   expect(toggle).toBeInTheDocument();
+  expect(homeToggle).toBeInTheDocument();
+  expect(awayToggle).toBeInTheDocument();
 
-  expect(homeScore).toBeInTheDocument();
-  expect(awayScore).toBeInTheDocument();
+  expect(homeHeading).toBeInTheDocument();
+  expect(awayHeading).toBeInTheDocument();
 
-  expect(scores).toHaveLength(2);
+  expect(homeScore).toHaveTextContent("0");
+  expect(awayScore).toHaveTextContent("0");
+
+  expect(periodHeading).toBeInTheDocument();
+  expect(period).toHaveTextContent("1");
+
+  expect(timeHeading).toBeInTheDocument();
+  expect(time).toBeInTheDocument();
 });
 
 it("renders the correct buttons whenever a sport is selected", async () => {

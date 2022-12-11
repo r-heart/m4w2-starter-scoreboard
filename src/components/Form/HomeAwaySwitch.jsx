@@ -7,7 +7,7 @@ export default function HomeAwaySwitch({ handleToggle }) {
       htmlFor="switch"
       className="switch relative flex cursor-pointer items-center"
     >
-      <span className="mr-1 text-sm">Home</span>
+      <span className="mr-1 text-sm" data-testid="home-toggle">Home</span>
       <input
         type="checkbox"
         id="switch"
@@ -16,7 +16,7 @@ export default function HomeAwaySwitch({ handleToggle }) {
         defaultChecked
       />
       <span className="h-6 w-12 rounded-full bg-gray-800" />
-      <span className="ml-1 text-sm">Away</span>
+      <span className="ml-1 text-sm" data-testid="away-toggle">Away</span>
     </label>
   );
 }
