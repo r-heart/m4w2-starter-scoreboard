@@ -1,10 +1,9 @@
 import { useState } from "react";
 import CONFIG from "../config";
-import Select from "./Select";
 import Buttons from "./Buttons/Buttons";
+import Select from "./Select";
 
 export default function Main() {
-  const [selectedSport, setSelectedSport] = useState("");
   const [buttons, setButtons] = useState([]);
 
   return (
@@ -16,7 +15,6 @@ export default function Main() {
           const selectedSport = CONFIG.find(
             (sport) => sport.sport === e.target.value
           );
-          setSelectedSport(selectedSport.sport);
           setButtons(selectedSport.buttons);
         }}
       />
