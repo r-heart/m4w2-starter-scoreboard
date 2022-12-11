@@ -30,3 +30,18 @@ test("initial render", async () => {
 
   expect(scores).toHaveLength(2);
 });
+
+it("renders the correct buttons whenever a sport is selected", async () => {
+  const user = userEvent.setup();
+  render(<Main />);
+
+  const select = screen.getByRole("combobox");
+
+  // Select the first actual choice (not the placeholder option)
+  await user.selectOptions(select, "⚾/⚽/🏒");
+
+  const buttons = screen.getAllByRole("button");
+
+  expect(buttons).toHaveLength(CONFIG[0].buttons.length);
+});
+
