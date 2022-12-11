@@ -63,3 +63,40 @@ it("updates the Away score whenever a button is clicked", async () => {
 
   expect(awayScore).toHaveTextContent("1");
 });
+
+it("updates the Home score only when home is toggled (updates Away score otherwise)", async () => {
+  const user = userEvent.setup();
+  render(<Main />);
+
+  const select = screen.getByRole("combobox");
+
+  // Select the first actual choice (not the placeholder option)
+  await user.selectOptions(select, "⚾/⚽/🏒");
+
+  // Wait for the buttons to render
+  const buttons = await screen.findAllByRole("button");
+
+  const toggle = screen.getByRole("checkbox");
+
+  const homeScore = screen.getByTestId("home-score");
+  const awayScore = screen.getByTestId("away-score");
+
+  await user.click(buttons[0]);
+
+  expect(homeScore).toHaveTextContent("0");
+  expect(awayScore).toHaveTextContent("1");
+
+  await user.click(toggle);
+
+  await user.click(buttons[0]);
+
+  expect(homeScore).toHaveTextContent("1");
+  expect(awayScore).toHaveTextContent("1");
+
+  await user.click(toggle);
+
+  await user.click(buttons[0]);
+
+  expect(homeScore).toHaveTextContent("1");
+  expect(awayScore).toHaveTextContent("2");
+});
