@@ -1,23 +1,24 @@
 import { useState } from "react";
-import Button from "./Button";
-
-const BUTTONS = [1, 2, 3, 4, 5];
+import CONFIG from "../config";
+import Select from "./Select";
 
 export default function Main() {
-  const [count, setCount] = useState(0);
-
-  const handleClick = (e) => {
-    setCount((prevCount) => prevCount + Number(e.target.dataset.count));
-  };
+  const [selectedSport, setSelectedSport] = useState("");
+  const [buttons, setButtons] = useState([]);
 
   return (
     <main className="flex flex-col items-center gap-y-4 ">
-      <div className="flex gap-x-4">
-        {BUTTONS.map((num) => (
-          <Button key={num} text={num} handleClick={handleClick} />
-        ))}
-      </div>
-      <p className="text-center text-5xl font-black">{count}</p>
+      <Select
+        id="sport-select"
+        options={CONFIG.map((sport) => sport.sport)}
+        handleChange={(e) => {
+          const selectedSport = CONFIG.find(
+            (sport) => sport.sport === e.target.value
+          );
+          setSelectedSport(selectedSport.sport);
+          setButtons(selectedSport.buttons);
+        }}
+      />
     </main>
   );
 }
