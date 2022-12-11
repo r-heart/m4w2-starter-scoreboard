@@ -5,11 +5,15 @@ export default function Scoreboard({ homeScore, awayScore }) {
     <section className="flex flex-row gap-x-4">
       <div className="flex flex-col items-center">
         <h2 className="text-2xl">Home</h2>
-        <p className="text-4xl">{homeScore}</p>
+        <p className="text-4xl" data-testid="home-score">
+          {homeScore}
+        </p>
       </div>
       <div className="flex flex-col items-center">
         <h2 className="text-2xl">Away</h2>
-        <p className="text-4xl">{awayScore}</p>
+        <p className="text-4xl" data-testid="away-score">
+          {awayScore}
+        </p>
       </div>
     </section>
   );
