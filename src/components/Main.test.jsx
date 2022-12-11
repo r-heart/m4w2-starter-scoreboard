@@ -38,7 +38,7 @@ it("renders the correct buttons whenever a sport is selected", async () => {
   const select = screen.getByRole("combobox");
 
   // Select the first actual choice (not the placeholder option)
-  await user.selectOptions(select, "⚾/⚽/🏒");
+  await user.selectOptions(select, "⚽/🏒");
 
   const buttons = screen.getAllByRole("button");
 
@@ -52,7 +52,7 @@ it("updates the Away score whenever a button is clicked", async () => {
   const select = screen.getByRole("combobox");
 
   // Select the first actual choice (not the placeholder option)
-  await user.selectOptions(select, "⚾/⚽/🏒");
+  await user.selectOptions(select, "⚽/🏒");
 
   // Wait for the buttons to render
   const buttons = await screen.findAllByRole("button");
@@ -71,7 +71,7 @@ it("updates the Home score only when home is toggled (updates Away score otherwi
   const select = screen.getByRole("combobox");
 
   // Select the first actual choice (not the placeholder option)
-  await user.selectOptions(select, "⚾/⚽/🏒");
+  await user.selectOptions(select, "⚽/🏒");
 
   // Wait for the buttons to render
   const buttons = await screen.findAllByRole("button");
