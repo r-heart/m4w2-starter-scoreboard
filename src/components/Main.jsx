@@ -3,6 +3,7 @@ import CONFIG from "../config";
 import Buttons from "./Buttons/Buttons";
 import Select from "./Select";
 import HomeAwaySwitch from "./HomeAwaySwitch";
+import Scoreboard from "./Scoreboard";
 
 export default function Main() {
   const [buttons, setButtons] = useState([]);
@@ -40,16 +41,7 @@ export default function Main() {
         }}
       />
 
-      <section className="flex flex-row gap-x-4">
-        <div className="flex flex-col items-center">
-          <h2 className="text-2xl">Home</h2>
-          <p className="text-4xl">{homeScore}</p>
-        </div>
-        <div className="flex flex-col items-center">
-          <h2 className="text-2xl">Away</h2>
-          <p className="text-4xl">{awayScore}</p>
-        </div>
-      </section>
+      <Scoreboard homeScore={homeScore} awayScore={awayScore} />
     </main>
   );
 }
