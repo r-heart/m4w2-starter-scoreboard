@@ -1,8 +1,7 @@
 import { useState } from "react";
 import CONFIG from "../config";
 import Buttons from "./Buttons/Buttons";
-import Select from "./Select";
-import HomeAwaySwitch from "./HomeAwaySwitch";
+import { HomeAwaySwitch, Select } from "./Form";
 import Scoreboard from "./Scoreboard";
 
 export default function Main() {
