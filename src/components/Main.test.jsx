@@ -45,3 +45,21 @@ it("renders the correct buttons whenever a sport is selected", async () => {
   expect(buttons).toHaveLength(CONFIG[0].buttons.length);
 });
 
+it("updates the Away score whenever a button is clicked", async () => {
+  const user = userEvent.setup();
+  render(<Main />);
+
+  const select = screen.getByRole("combobox");
+
+  // Select the first actual choice (not the placeholder option)
+  await user.selectOptions(select, "⚾/⚽/🏒");
+
+  // Wait for the buttons to render
+  const buttons = await screen.findAllByRole("button");
+
+  await user.click(buttons[0]);
+
+  const awayScore = screen.getByTestId("away-score");
+
+  expect(awayScore).toHaveTextContent("1");
+});
