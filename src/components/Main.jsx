@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CONFIG from "../config";
 import Buttons from "./Buttons/Buttons";
-import { HomeAwaySwitch, Select } from "./Form";
+import { HomeAwaySwitch, NumericalInput, Select } from "./Form";
 import Scoreboard from "./Scoreboard";
 
 export default function Main() {
@@ -9,6 +9,9 @@ export default function Main() {
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
   const [homeAway, setHomeAway] = useState("away");
+  const [periods, setPeriods] = useState(2);
+  const [currentPeriod, setCurrentPeriod] = useState(1);
+  const [minutes, setMinutes] = useState(15);
 
   return (
     <main className="flex flex-col items-center gap-y-4 ">
@@ -20,6 +23,24 @@ export default function Main() {
             (sport) => sport.sport === e.target.value
           );
           setButtons(selectedSport.buttons);
+        }}
+      />
+
+      <NumericalInput
+        id="periods"
+        placeholder="Number of Periods"
+        defaultValue={periods}
+        handleBlur={(e) => {
+          setPeriods(e.target.value);
+        }}
+      />
+
+      <NumericalInput
+        id="time"
+        placeholder="Time per period? (minutes)"
+        defaultValue={minutes}
+        handleBlur={(e) => {
+          setMinutes(e.target.value);
         }}
       />
 
@@ -40,7 +61,12 @@ export default function Main() {
         }}
       />
 
-      <Scoreboard homeScore={homeScore} awayScore={awayScore} />
+      <Scoreboard
+        homeScore={homeScore}
+        awayScore={awayScore}
+        minutes={minutes}
+        currentPeriod={currentPeriod}
+      />
     </main>
   );
 }
