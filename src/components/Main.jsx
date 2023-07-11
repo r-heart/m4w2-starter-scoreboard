@@ -6,9 +6,9 @@ import Scoreboard from "./Scoreboard";
 
 export default function Main() {
   const [buttons, setButtons] = useState([]);
-  const [homeScore, setHomeScore] = useState(0);
-  const [awayScore, setAwayScore] = useState(0);
   const [homeAway, setHomeAway] = useState("away");
+  const [awayScore, setAwayScore] = useState(0);
+  const [homeScore, setHomeScore] = useState(0);
   const [periods, setPeriods] = useState(2);
   const [currentPeriod, setCurrentPeriod] = useState(1);
   const [minutes, setMinutes] = useState(15);
