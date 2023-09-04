@@ -1,16 +1,17 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import Buttons from "../components/Buttons/Buttons";
 import { HomeAwaySwitch } from "../components/Form";
 import Scoreboard from "../components/Scoreboard";
 
-export default function Display() {
-  const [buttons, setButtons] = useState([]);
+export default function Display({ buttons, periods, timePerPeriod }) {
   const [homeAway, setHomeAway] = useState("away");
   const [awayScore, setAwayScore] = useState(0);
   const [homeScore, setHomeScore] = useState(0);
-  const [periods, setPeriods] = useState(2);
   const [currentPeriod, setCurrentPeriod] = useState(1);
   const [minutes, setMinutes] = useState(15);
+
+  // TODO: Manage the time and current period, bring in color buttons
 
   return (
     <>
@@ -40,3 +41,9 @@ export default function Display() {
     </>
   );
 }
+
+Display.propTypes = {
+  buttons: PropTypes.arrayOf(PropTypes.number).isRequired,
+  periods: PropTypes.PropTypes.number.isRequired,
+  timePerPeriod: PropTypes.number.isRequired,
+};

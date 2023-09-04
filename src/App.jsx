@@ -7,6 +7,7 @@ function App() {
   const [gameStart, setGameStart] = useState(false);
   const [periods, setPeriods] = useState(1);
   const [timePerPeriod, setTimePerPeriod] = useState(0);
+
   return (
     // using shorthand for a React Fragment
     <>
@@ -15,7 +16,11 @@ function App() {
       </h1>
       <main className="flex flex-col items-center gap-y-4">
         {gameStart ? (
-          <Display />
+          <Display
+            buttons={buttons}
+            periods={periods}
+            timePerPeriod={timePerPeriod}
+          />
         ) : (
           <Setup
             setButtons={setButtons}
