@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import Buttons from "../components/Buttons/Buttons";
+import Button from "../components/Buttons/Button.jsx";
+import Buttons from "../components/Buttons/Buttons.jsx";
 import { HomeAwaySwitch } from "../components/Form";
 import Scoreboard from "../components/Scoreboard";
 
@@ -38,12 +39,46 @@ export default function Display({ buttons, periods, timePerPeriod }) {
         minutes={minutes}
         currentPeriod={currentPeriod}
       />
+
+      <div className="flex gap-x-8">
+        <Button
+          colorClass="bg-green-500"
+          text="Start"
+          handleClick={() => {
+            console.log("Start");
+          }}
+        />
+
+        <Button
+          colorClass="bg-orange-500"
+          text="Stop"
+          handleClick={() => {
+            console.log("Stop");
+          }}
+        />
+
+        <Button
+          colorClass="bg-yellow-700"
+          text="Next Period"
+          handleClick={() => {
+            console.log("Next Period");
+          }}
+        />
+
+        <Button
+          colorClass="bg-red-500"
+          text="Reset Board"
+          handleClick={() => {
+            console.log("Reset Board");
+          }}
+        />
+      </div>
     </>
   );
 }
 
 Display.propTypes = {
   buttons: PropTypes.arrayOf(PropTypes.number).isRequired,
-  periods: PropTypes.PropTypes.number.isRequired,
+  periods: PropTypes.number.isRequired,
   timePerPeriod: PropTypes.number.isRequired,
 };
