@@ -79,6 +79,7 @@ export default function Display({ buttons, periods, timePerPeriod }) {
 
 Display.propTypes = {
   buttons: PropTypes.arrayOf(PropTypes.number).isRequired,
-  periods: PropTypes.number.isRequired,
-  timePerPeriod: PropTypes.number.isRequired,
+  periods: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  timePerPeriod: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
 };
