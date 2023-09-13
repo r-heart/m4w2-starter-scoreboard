@@ -52,6 +52,5 @@ Scoreboard.propTypes = {
 Scoreboard.defaultProps = {
   homeScore: 0,
   awayScore: 0,
-
   currentPeriod: 1,
 };

@@ -10,7 +10,10 @@ export default function Display({ buttons, periods, timePerPeriod }) {
   const [awayScore, setAwayScore] = useState(0);
   const [homeScore, setHomeScore] = useState(0);
   const [currentPeriod, setCurrentPeriod] = useState(1);
-  const [minutes, setMinutes] = useState(15);
+  const [timeRemaining, setTimeRemaining] = useState(
+    // Seconds to minutes
+    timePerPeriod * 60
+  );
 
   // TODO: Manage the time and current period, bring in color buttons
 
@@ -36,7 +39,7 @@ export default function Display({ buttons, periods, timePerPeriod }) {
       <Scoreboard
         homeScore={homeScore}
         awayScore={awayScore}
-        minutes={minutes}
+        timeRemaining={timeRemaining}
         currentPeriod={currentPeriod}
       />
 
