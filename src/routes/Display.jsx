@@ -75,7 +75,8 @@ export default function Display({ buttons, periods, timePerPeriod }) {
           colorClass="bg-yellow-700"
           text="Next Period"
           handleClick={() => {
-            console.log("Next Period");
+            setCurrentPeriod((prev) => (prev < periods ? prev + 1 : prev));
+            setTimeRemaining(timePerPeriod * 60);
           }}
         />
 
@@ -83,7 +84,7 @@ export default function Display({ buttons, periods, timePerPeriod }) {
           colorClass="bg-red-500"
           text="Reset Board"
           handleClick={() => {
-            console.log("Reset Board");
+            window.location.reload(false);
           }}
         />
       </div>
