@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Buttons/Button.jsx";
 import Buttons from "../components/Buttons/Buttons.jsx";
 import { HomeAwaySwitch } from "../components/Form";
@@ -14,8 +14,19 @@ export default function Display({ buttons, periods, timePerPeriod }) {
     // Seconds to minutes
     timePerPeriod * 60
   );
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-  // TODO: Manage the time and current period, bring in color buttons
+  useEffect(() => {
+    if (isTimerRunning && timeRemaining > 0) {
+      const intervalId = setInterval(() => {
+        setTimeRemaining((prev) => prev - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [timeRemaining, isTimerRunning]);
 
   return (
     <>
@@ -48,7 +59,7 @@ export default function Display({ buttons, periods, timePerPeriod }) {
           colorClass="bg-green-500"
           text="Start"
           handleClick={() => {
-            console.log("Start");
+            setIsTimerRunning((prev) => !prev);
           }}
         />
 
@@ -56,7 +67,7 @@ export default function Display({ buttons, periods, timePerPeriod }) {
           colorClass="bg-orange-500"
           text="Stop"
           handleClick={() => {
-            console.log("Stop");
+            setIsTimerRunning((prev) => !prev);
           }}
         />
 
