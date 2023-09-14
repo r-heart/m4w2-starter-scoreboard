@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import Display from "../components/Display";
 
 test("initial render", () => {
@@ -62,4 +63,52 @@ it("advances the period only pu to the max periods", async () => {
   // Limited to two periods
   await user.click(nextPeriodButton);
   expect(periodP).toHaveTextContent("2");
+});
+
+// Testing Timers
+describe("Timer 🤡", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+  });
+
+  test("timer reflects MM:SS accurately", async () => {
+    const user = userEvent.setup({ delay: null });
+    render(<Display buttons={[1, 2, 3]} periods={2} timePerPeriod={10} />);
+
+    const startBtn = screen.getByRole("button", { name: "Start" });
+    const timeDisplay = screen.getByTestId("time");
+
+    await user.click(startBtn);
+
+    await waitFor(() => {
+      expect(timeDisplay).toHaveTextContent("10:00");
+    });
+
+    act(() => {
+      // 30 seconds
+      vi.advanceTimersByTime(30000);
+    });
+
+    await waitFor(() => {
+      expect(timeDisplay).toHaveTextContent("9:30");
+    });
+
+    act(() => {
+      // 6 more seconds
+      vi.advanceTimersByTime(6000);
+    });
+
+    await waitFor(() => {
+      expect(timeDisplay).toHaveTextContent("9:24");
+    });
+
+    act(() => {
+      // 1 second left! ⏳
+      vi.advanceTimersByTime(563000);
+    });
+
+    await waitFor(() => {
+      expect(timeDisplay).toHaveTextContent("0:01");
+    });
+  });
 });
