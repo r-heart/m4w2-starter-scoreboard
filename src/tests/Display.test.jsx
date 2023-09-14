@@ -112,3 +112,40 @@ describe("Timer 🤡", () => {
     });
   });
 });
+
+test("stops and restarts timer", async () => {
+  const user = userEvent.setup({ delay: null });
+  render(<Display buttons={[1, 2, 3]} periods={2} timePerPeriod={10} />);
+
+  const startBtn = screen.getByRole("button", { name: "Start" });
+  const stopBtn = screen.getByRole("button", { name: "Stop" });
+  const timeDisplay = screen.getByTestId("time");
+
+  await user.click(startBtn);
+
+  act(() => {
+    // 30 seconds
+    vi.advanceTimerByTime(30000);
+  });
+
+  await user.click(stopBtn);
+
+  act(() => {
+    vi.advanceTimersByTime(10000);
+  });
+
+  await waitFor(() => {
+    // Even though 40 seconds have elapsed...
+    expect(timeDisplay).toHaveTextContent("9:30");
+  });
+
+  await user.click(startBtn);
+
+  act(() => {
+    vi.advanceTimersByTime(10000);
+  });
+
+  await waitFor(() => {
+    expect(timeDisplay).toHaveTextContent("9:20");
+  });
+});
