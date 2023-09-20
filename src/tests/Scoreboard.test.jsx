@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Scoreboard from "../components/Scoreboard";
 
 test("renders the scoreboard", () => {
@@ -13,6 +13,6 @@ it("initial render", () => {
 
 it("shows minutes and seconds in proper format", () => {
   render(<Scoreboard timeRemaining={899} />);
-  const timeP = screen.getByTestID("time");
+  const timeP = screen.getByTestId("time");
   expect(timeP).toHaveTextContent("14:59");
 });

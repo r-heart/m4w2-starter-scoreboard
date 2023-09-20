@@ -50,7 +50,7 @@ it("update the Home and Away score based on the toggles", async () => {
   expect(homeScore).toHaveTextContent("1");
 });
 
-it("advances the period only pu to the max periods", async () => {
+it("advances the period only up to the max periods", async () => {
   const user = userEvent.setup();
   render(<Display buttons={[1, 2, 3]} periods={2} timePerPeriod={5} />);
 
