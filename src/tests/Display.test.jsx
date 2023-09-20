@@ -1,7 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-import Display from "../components/Display";
+import Display from "../routes/Display";
 
 test("initial render", () => {
   const rendered = render(
