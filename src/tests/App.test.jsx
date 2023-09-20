@@ -23,8 +23,8 @@ it("limits the numbers of periods to the number specified in the config", async 
   const user = userEvent.setup();
   render(<App />);
 
-  const periodsInput = screen.getByLabel("periods");
-  const goBtn = screen.getByRole("button", { name: "Go" });
+  const periodsInput = screen.getByLabelText(/periods/i);
+  const goBtn = screen.getByRole("button", { name: /Go/i });
 
   await user.type(periodsInput, "3");
   await user.click(goBtn);
@@ -38,7 +38,7 @@ it("limits the numbers of periods to the number specified in the config", async 
   await user.click(nextPeriodBtn);
   await user.click(nextPeriodBtn);
 
-  expect(periodP).toHaveContent("3");
+  expect(periodP).toHaveTextContent("3");
 });
 
 it("starts with the correct time remaining", async () => {
@@ -46,7 +46,7 @@ it("starts with the correct time remaining", async () => {
   render(<App />);
 
   const timeRemainingInput = screen.getByLabelText(/time/i);
-  const goBtn = screen.getByRole("button", { name: "Go!" });
+  const goBtn = screen.getByRole("button", { name: /Go/i });
 
   await user.type(timeRemainingInput, "10");
   await user.click(goBtn);
