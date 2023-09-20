@@ -18,3 +18,25 @@ it("renders the correct buttons whenever a sport is selected", async () => {
 
   expect(buttons).toHaveLength(CONFIG[0].buttons.length);
 });
+
+it("limits the numbers of periods to the number specified in the config", async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  const periodsInput = screen.getByLabel("periods");
+  const goBtn = screen.getByRole("button", { name: "Go" });
+
+  await user.type(periodsInput, "3");
+  await user.click(goBtn);
+
+  const nextPeriodBtn = await screen.findByRole("button", {
+    name: "Next Period",
+  });
+  const periodP = await screen.findByTestId("period");
+
+  await user.click(nextPeriodBtn);
+  await user.click(nextPeriodBtn);
+  await user.click(nextPeriodBtn);
+
+  expect(periodP).toHaveContent("3");
+});
