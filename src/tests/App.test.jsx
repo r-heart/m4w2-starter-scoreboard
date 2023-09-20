@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 import CONFIG from "../config";
@@ -39,4 +39,23 @@ it("limits the numbers of periods to the number specified in the config", async 
   await user.click(nextPeriodBtn);
 
   expect(periodP).toHaveContent("3");
+});
+
+it("starts with the correct time remaining", async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  const timeRemainingInput = screen.getByLabelText(/time/i);
+  const goBtn = screen.getByRole("button", { name: "Go!" });
+
+  await user.type(timeRemainingInput, "10");
+  await user.click(goBtn);
+
+  const startBtn = await screen.findByRole("button", { name: "Start" });
+  const timeDisplay = await screen.findByTestId("time");
+  await user.click(startBtn);
+
+  await waitFor(() => {
+    expect(timeDisplay).toHaveTextContent("10:00");
+  });
 });
