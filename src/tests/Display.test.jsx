@@ -124,7 +124,7 @@ describe("Timer 🤡", () => {
 
     act(() => {
       // 30 seconds
-      vi.advanceTimerByTime(30000);
+      vi.advanceTimersByTime(30000);
     });
 
     await user.click(stopBtn);
