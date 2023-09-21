@@ -24,7 +24,7 @@ it("updates the Away score", () => {
 it("update the Home and Away score based on the toggles", async () => {
   const user = userEvent.setup();
   render(<Display buttons={[1, 2, 3]} periods={3} timePerPeriod={5} />);
-  const buttons = screen.getByRole("button");
+  const buttons = screen.getAllByRole("button");
 
   // Toggle starts with "away" selected
   const toggle = screen.getByRole("checkbox");
