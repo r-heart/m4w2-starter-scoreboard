@@ -1,11 +1,15 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { setup } from "src/setupTests.js";
 import App from "../App";
 import CONFIG from "../config";
 
+test("intitial render", async () => {
+  const rendered = render(<App />);
+  expect(rendered).toMatchSnapshot();
+});
+
 it("renders the correct buttons whenever a sport is selected", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+  const { user } = setup(<App />);
 
   const select = screen.getByRole("combobox");
 
@@ -18,8 +22,7 @@ it("renders the correct buttons whenever a sport is selected", async () => {
 });
 
 it("limits the numbers of periods to the number specified in the config", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+  const { user } = setup(<App />);
 
   const periodsInput = screen.getByLabelText(/periods/i);
   const goBtn = screen.getByRole("button", { name: /Go/i });
@@ -40,8 +43,7 @@ it("limits the numbers of periods to the number specified in the config", async 
 });
 
 it("starts with the correct time remaining", async () => {
-  const user = userEvent.setup();
-  render(<App />);
+  const { user } = setup(<App />);
 
   const timeRemainingInput = screen.getByLabelText(/time/i);
   const goBtn = screen.getByRole("button", { name: /Go/i });
