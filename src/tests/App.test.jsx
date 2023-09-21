@@ -3,8 +3,6 @@ import userEvent from "@testing-library/user-event";
 import App from "../App";
 import CONFIG from "../config";
 
-const choices = CONFIG.map((sport) => sport.sport);
-
 it("renders the correct buttons whenever a sport is selected", async () => {
   const user = userEvent.setup();
   render(<App />);
