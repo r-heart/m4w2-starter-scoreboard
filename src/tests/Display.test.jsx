@@ -1,72 +1,81 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Display from "src/routes/Display.jsx";
+import { setup } from "src/setupTests.js";
 import { vi } from "vitest";
-import Display from "../routes/Display";
 
-test("initial render", () => {
-  const rendered = render(
-    <Display buttons={[1, 2, 3]} periods={3} timePerPeriod={5} />
-  );
-  expect(rendered).toMatchSnapshot();
-});
+// use describe blocks to group related tests
+// describe block for tests using the setup function
+describe("tests using the setup function", () => {
+  let rendered;
 
-it("updates the Away score", () => {
+  // beforeEach block to render the component before each test
+  beforeEach(() => {
+    rendered = setup(
+      <Display buttons={[1, 2, 3]} periods={2} timePerPeriod={5} />
+    );
+  });
+
+  it("initial render", () => {
+    expect(rendered.container).toMatchSnapshot();
+  });
+
   it("updates the Away score", async () => {
-    const user = userEvent.setup();
-    render(<Display buttons={[1, 2, 3]} periods={3} timePerPeriod={5} />);
+    const { user } = setup();
     const awayButton = screen.getByRole("button", { name: "1" });
     const awayScore = screen.getByTestId("away-score");
     await user.click(awayButton);
     expect(awayScore).toHaveTextContent("1");
   });
+
+  it("updates the Home and Away score based on the toggles", async () => {
+    const { user } = setup();
+    const buttons = screen.getAllByRole("button");
+
+    // Toggle starts with "away" selected
+    const toggle = screen.getByRole("checkbox");
+
+    const awayScore = screen.getByTestId("away-score");
+    const homeScore = screen.getByTestId("home-score");
+
+    await user.click(buttons[0]);
+
+    expect(awayScore).toHaveTextContent("1");
+    expect(homeScore).toHaveTextContent("0");
+
+    await user.click(toggle);
+    await user.click(buttons[0]);
+
+    expect(awayScore).toHaveTextContent("1");
+    expect(homeScore).toHaveTextContent("1");
+
+    await user.click(toggle);
+    await user.click(buttons[0]);
+
+    expect(awayScore).toHaveTextContent("2");
+    expect(homeScore).toHaveTextContent("1");
+  });
+
+  it("advances the period only up to the max periods", async () => {
+    const { user } = setup();
+
+    const nextPeriodButton = screen.getByRole("button", {
+      name: "Next Period",
+    });
+    const periodP = screen.getByTestId("period");
+
+    await user.click(nextPeriodButton);
+    expect(periodP).toHaveTextContent("2");
+
+    // Limited to two periods
+    await user.click(nextPeriodButton);
+    expect(periodP).toHaveTextContent("2");
+  });
 });
 
-it("update the Home and Away score based on the toggles", async () => {
-  const user = userEvent.setup();
-  render(<Display buttons={[1, 2, 3]} periods={3} timePerPeriod={5} />);
-  const buttons = screen.getAllByRole("button");
+describe("tests without the setup function", () => {
+  // Testing Timers
 
-  // Toggle starts with "away" selected
-  const toggle = screen.getByRole("checkbox");
-
-  const awayScore = screen.getByTestId("away-score");
-  const homeScore = screen.getByTestId("home-score");
-
-  await user.click(buttons[0]);
-
-  expect(awayScore).toHaveTextContent("1");
-  expect(homeScore).toHaveTextContent("0");
-
-  await user.click(toggle);
-  await user.click(buttons[0]);
-
-  expect(awayScore).toHaveTextContent("1");
-  expect(homeScore).toHaveTextContent("1");
-
-  await user.click(toggle);
-  await user.click(buttons[0]);
-
-  expect(awayScore).toHaveTextContent("2");
-  expect(homeScore).toHaveTextContent("1");
-});
-
-it("advances the period only up to the max periods", async () => {
-  const user = userEvent.setup();
-  render(<Display buttons={[1, 2, 3]} periods={2} timePerPeriod={5} />);
-
-  const nextPeriodButton = screen.getByRole("button", { name: "Next Period" });
-  const periodP = screen.getByTestId("period");
-
-  await user.click(nextPeriodButton);
-  expect(periodP).toHaveTextContent("2");
-
-  // Limited to two periods
-  await user.click(nextPeriodButton);
-  expect(periodP).toHaveTextContent("2");
-});
-
-// Testing Timers
-describe("Timer 🤡", () => {
   beforeAll(() => {
     vi.useFakeTimers();
   });
